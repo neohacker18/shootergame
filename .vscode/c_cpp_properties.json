@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/USERS/DELL/ONEDRIVE/DOCUMENTS/GITHUB/SHOOTERGAME/SOURCE/INCLUDE"
+                "C:/USERS/DELL/ONEDRIVE/DOCUMENTS/GITHUB/SHOOTERGAME/SRC/INCLUDE"
             ],
             "defines": [
                 "_DEBUG",
