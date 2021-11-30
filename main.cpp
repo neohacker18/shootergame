@@ -66,12 +66,16 @@ int main()
     font.loadFromFile("textures/Times New Roman 400.ttf");
 
 //making sprites
+
+    //player sprite
     Texture playerTex;
     playerTex.loadFromFile("textures/rocket.png");
 
+    //enemy sprite
     Texture enemyTex;
     enemyTex.loadFromFile("textures/asteroid.jpg");
 
+    //bullets sprite
     Texture bulletTex;
     bulletTex.loadFromFile("textures/bullet.jpg");
 
@@ -80,6 +84,8 @@ int main()
     int shootTimer=20;
     int Pscore=0;
     float j=0;
+
+//dsiplay health 
     Text hpText;
     hpText.setFont(font);
     hpText.setCharacterSize(20);
@@ -99,11 +105,13 @@ int main()
     score.setCharacterSize(25);
     score.setPosition(10.f,10.f);
 
-//enemy
+//enemy initialization
     int enemyTimer=0;
     std::vector<Enemy>enemies;
 
-    while (window.isOpen())
+//-------------------------------------------game starts-------------------------------------------------------//
+
+      while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
@@ -129,7 +137,8 @@ int main()
         {
             player.shape.move(10.f , 0.f);
         }
-
+    
+//display of health of player
         hpText.setPosition(player.shape.getPosition().x , player.shape.getPosition().y - hpText.getGlobalBounds().height);
         hpText.setString(std::to_string(player.HP)+"/"+std::to_string(player.HPMax));
 
@@ -151,16 +160,19 @@ int main()
             player.shape.setPosition(player.shape.getPosition().x,window.getSize().y - player.shape.getGlobalBounds().height);
         }
 
-        if(shootTimer<60)
+//creating bullets on left click of mouse button
+
+  //to delay creation of bullets
+        if(shootTimer<20)
         shootTimer++;
 
-//update
         if(Mouse::isButtonPressed(Mouse::Left) && shootTimer>=20)
         {
             player.bullets.push_back(Bullet(&bulletTex,player.shape.getPosition()));
             shootTimer=0;
         }
-//bullets
+
+//more with bullets
         for(int i=0;i<player.bullets.size();i++)
         {
         //move
@@ -182,8 +194,9 @@ int main()
                 }
             }
         }
+
 //score display
-score.setString("Score : "+std::to_string(Pscore));
+        score.setString("Score : "+std::to_string(Pscore));
 
 //enemies spawning
         if(enemyTimer<60)
@@ -216,6 +229,7 @@ score.setString("Score : "+std::to_string(Pscore));
 
 
         window.clear();
+
 //drawing player
         window.draw(player.shape);
 //drawing enemy
@@ -232,6 +246,7 @@ score.setString("Score : "+std::to_string(Pscore));
         window.draw(hpText);
         window.draw(score);
 
+//game over 
         window.display();
         if(player.HP<=0){
             window.clear();
